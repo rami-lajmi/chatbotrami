@@ -29,6 +29,7 @@ app.post('/webhook', function (req, res) {
 		 if (event.postback) {
           processPostback(event);
         }
+		res.sendStatus(200);
 		  function processPostback(event) {
   var senderId = event.sender.id;
   var payload = event.postback.payload;
@@ -69,7 +70,7 @@ app.post('/webhook', function (req, res) {
             //sendMessage(event.sender.id, {text: "Bonjour XXX, Je suis un bot crée par Rami" /*+ event.message.text*/});
         //}
     }
-    res.sendStatus(200);
+    
 });
 
 // generic function sending messages
