@@ -27,24 +27,7 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
-			
-			request({
-      url: "https://graph.facebook.com/v2.6/" + senderId,
-      qs: {
-        access_token: process.env.PAGE_ACCESS_TOKEN,
-        fields: "first_name"
-      },
-      method: "GET"
-    }
-      var greeting = "";
-      
-      var bodyObj = JSON.parse(body);
-        name = bodyObj.first_name;
-        greeting = "Hi " + name + ". ";
-      
-			
-			
-            sendMessage(event.sender.id, {text: greeting /*"Bonjour XXX, Je suis un bot crée par Rami" + event.message.text*/});
+            sendMessage(event.sender.id, {text: "Bonjour XXX, Je suis un bot crée par Rami" /*+ event.message.text*/});
         }
     }
     res.sendStatus(200);
