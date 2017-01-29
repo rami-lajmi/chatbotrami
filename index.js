@@ -35,15 +35,13 @@ app.post('/webhook', function (req, res) {
         fields: "first_name"
       },
       method: "GET"
-    }, function(error, response, body) {
+    }, 
       var greeting = "";
-      if (error) {
-        console.log("Error getting user's name: " +  error);
-      } else {
-        var bodyObj = JSON.parse(body);
+      
+      var bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
-      }
+      
 			
 			
             sendMessage(event.sender.id, {text: greeting /*"Bonjour XXX, Je suis un bot crée par Rami" + event.message.text*/});
