@@ -35,7 +35,7 @@ app.post('/webhook', function (req, res) {
         fields: "first_name"
       },
       method: "GET"
-    }, 
+    }
       var greeting = "";
       
       var bodyObj = JSON.parse(body);
