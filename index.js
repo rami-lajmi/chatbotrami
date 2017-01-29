@@ -26,36 +26,8 @@ app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
     for (i = 0; i < events.length; i++) {
         var event = events[i];
-			
-		
-		
-		
-		
-		
         if (event.message && event.message.text) {
-			var senderId = event.sender.id;
-  var payload = event.postback.payload;
-
-  if (payload === "Greeting") {
-    // Get user's first name from the User Profile API
-    // and include it in the greeting
-    request({
-      url: "https://graph.facebook.com/v2.6/" + senderId,
-      qs: {
-        access_token: process.env.PAGE_ACCESS_TOKEN,
-        fields: "first_name"
-      },
-      method: "GET"
-    }, function(error, response, body) {
-      var greeting = "";
-      if (error) {
-        console.log("Error getting user's name: " +  error);
-      } else {
-        var bodyObj = JSON.parse(body);
-        name = bodyObj.first_name;
-        greeting =  name;
-      }
-            sendMessage(event.sender.id, {text: "Bonjour " + greeting + ", Je suis un bot crée par Rami" /*+ event.message.text*/});
+            sendMessage(event.sender.id, {text: "Bonjour XXX, Je suis un bot crée par Rami" /*+ event.message.text*/});
         }
     }
     res.sendStatus(200);
