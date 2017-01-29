@@ -21,26 +21,15 @@ app.get('/webhook', function (req, res) {
     }
 });
 
-// All callbacks for Messenger will be POST-ed here
-app.post("/webhook", function (req, res) {
-  // Make sure this is a page subscription
-  
-    // Iterate over each entry
-    // There may be multiple entries if batched
-    req.body.entry.forEach(function(entry) {
-      // Iterate over each messaging event
-      entry.messaging.forEach(function(event) {
-        if (event.postback) {
+// handler receiving messages
+app.post('/webhook', function (req, res) {  
+    var events = req.body.entry[0].messaging;
+    for (i = 0; i < events.length; i++) {
+        var event = events[i];
+		 if (event.postback) {
           processPostback(event);
         }
-      });
-    });
-
-    res.sendStatus(200);
-  
-});
-
-function processPostback(event) {
+		  function processPostback(event) {
   var senderId = event.sender.id;
   var payload = event.postback.payload;
 
@@ -68,20 +57,37 @@ function processPostback(event) {
     });
   }
 }
+		
+		
+		
+		
+		
+		
+		
+		
+        //if (event.message && event.message.text) {
+            //sendMessage(event.sender.id, {text: "Bonjour XXX, Je suis un bot crée par Rami" /*+ event.message.text*/});
+        //}
+    }
+    res.sendStatus(200);
+});
 
-// sends message to user
-function sendMessage(recipientId, message) {
-  request({
-    url: "https://graph.facebook.com/v2.6/me/messages",
-    qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-    method: "POST",
-    json: {
-      recipient: {id: recipientId},
-      message: message,
-    }
-  }, function(error, response, body) {
-    if (error) {
-      console.log("Error sending message: " + response.error);
-    }
-  });
-}
+// generic function sending messages
+function sendMessage(recipientId, message) {  
+    request({
+        url: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+        method: 'POST',
+        json: {
+            recipient: {id: recipientId},
+            message: message,
+        }
+    }, function(error, response, body) {
+        if (error) {
+            console.log('Error sending message: ', error);
+        } else if (response.body.error) {
+            console.log('Error: ', response.body.error);
+        }
+    });
+};
+
