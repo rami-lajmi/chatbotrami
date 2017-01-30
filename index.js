@@ -26,10 +26,7 @@ app.post('/webhook', function (req, res) {
 	var greeting = "";
 	request({
 				url: "https://graph.facebook.com/v2.6/" + senderId,
-				qs: {
-					access_token: process.env.PAGE_ACCESS_TOKEN,
-					fields: "first_name"
-				},
+				qs: {access_token: process.env.PAGE_ACCESS_TOKEN,fields: "first_name"},
 				method: "GET"
 			}
 			var bodyObj = JSON.parse(body);
