@@ -24,7 +24,12 @@ app.get('/webhook', function (req, res) {
 // handler receiving messages
 app.post('/webhook', function (req, res) {  
 	var greeting = "";
-	request({
+	
+    var events = req.body.entry[0].messaging;
+    for (i = 0; i < events.length; i++) {
+        var event = events[i];
+		
+		request({
 				url: "https://graph.facebook.com/v2.6/" + senderId,
 				qs: {access_token: process.env.PAGE_ACCESS_TOKEN,fields: "first_name"},
 				method: "GET"
@@ -32,9 +37,7 @@ app.post('/webhook', function (req, res) {
 			var bodyObj = JSON.parse(body);
 			name = bodyObj.first_name;
 			greeting = name;
-    var events = req.body.entry[0].messaging;
-    for (i = 0; i < events.length; i++) {
-        var event = events[i];
+		
         if (event.message && event.message.text) {
 			
             sendMessage(event.sender.id, {text:" Bonjour, Je suis un bot crée par Rami" /*+ event.message.text*/});
