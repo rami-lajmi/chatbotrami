@@ -41,7 +41,7 @@ app.post('/webhook', function (req, res) {
 			name = bodyObj.first_name;
 			greeting = name;
 			
-            sendMessage(event.sender.id, {text: greeting + " Bonjour, Je suis un bot crée par Rami" /*+ event.message.text*/});
+            sendMessage(event.sender.id, {text:" Bonjour, Je suis un bot crée par Rami" /*+ event.message.text*/});
         }
     }
     res.sendStatus(200);
